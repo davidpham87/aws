@@ -17,7 +17,7 @@ snapshots = ec2.describe_snapshots(OwnerIds=['233890315439'])
 snapshots_sorted = sorted(snapshots['Snapshots'], key = lambda d: d['StartTime'])
 
 if len(snapshots_sorted) > 1:
-    snapshots_to_delete = [d['SnapshotId'] for d in snapshots_sorted[-1]]
+    snapshots_to_delete = [d['SnapshotId'] for d in snapshots_sorted[:-1]]
 
 for snapshot_id in snapshots_to_delete:
     ec2.delete_snapshot(SnapshotId=snapshot_id)
