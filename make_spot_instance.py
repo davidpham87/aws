@@ -4,8 +4,8 @@ import storm # ssh
 from core import get_spot_instance, get_image_id
 
 CREATE_REQUEST = True
-spot_price = '0.02'
-instance_type = "c4.large"
+spot_price = '0.35'
+instance_type = "p2.xlarge"
 
 launch_specs = {
     "ImageId": get_image_id('ubuntu_machine_learning'),
@@ -14,7 +14,9 @@ launch_specs = {
     "BlockDeviceMappings": [ {
         "DeviceName": "/dev/sda1",
         "Ebs": { "DeleteOnTermination": True,
-                 "VolumeType": "gp2", "VolumeSize": 50}}]}
+                 "VolumeType": "gp2", "VolumeSize": 50}}],
+    'Placement': {'AvailabilityZone': 'us-east-2b'}}
+
 ec2 = boto3.client('ec2')
 
 if CREATE_REQUEST:
@@ -45,7 +47,6 @@ while not ip_address and k < n_trials:
 
 if not ip_address:
     raise RuntimeError('Not spot instance available')
-
 
 ssh_config = storm.Storm()
 

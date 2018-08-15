@@ -8,8 +8,6 @@ spot_instance = get_spot_instance()
 print("Saving image")
 save_reponse = save_image_instance(spot_instance['InstanceId'])
 time.sleep(60)
-print()
-
 
 ### Clearing snapshots
 print("Deleting useless snapshots")

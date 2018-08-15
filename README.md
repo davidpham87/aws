@@ -99,8 +99,15 @@ sshfs aws:/run/user/1000/jupyter/ ~/jupyter_security
 
 ```{lisp}
 (setq request-curl-options '("--insecure")) ;; allow unverified ssl
-(setq ein:console-args '("--ssh" "aws" "--simple-prompt")) ;; the server
+(setq ein:console-args '("--ssh" "aws-jupyter" "--simple-prompt")) ;; the server
 (setq ein:console-security-dir "~/jupyter_security") ;; the local folder where security files are forwarded
 ```
+## Sync files between server and home directory
 
+Continuous synching 
+
+```{sh}
+watch -n 30 "rsync -azv ssh:aws:~/server-folder home-folder
+" 
+```
 
